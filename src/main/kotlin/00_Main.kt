@@ -6,6 +6,6 @@ fun main(args : Array<String>) {
     /*
         Imprimiendo un valor por pantalla
      */
-    println("Hello, world!")
+    println("Hola Mundo!")
     print(args)
 }

@@ -23,5 +23,5 @@ kotlin {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("00_MainKt")
 }
