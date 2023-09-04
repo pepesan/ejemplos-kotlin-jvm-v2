@@ -1,7 +1,6 @@
 package com.cursosdedesarrollo.kotlin
 
-import com.sun.corba.se.impl.orbutil.graph.Graph
-import sun.security.provider.certpath.Vertex
+
 
 //Definición de una función
 fun double(x: Int): Int {
@@ -79,14 +78,27 @@ infix fun Int.shl(x: Int): Int {
 }
 
 
-//Funciones locales
-fun dfs(graph: Graph) {
-    fun dfs(current: Graph, visited: Set<Vertex>) {
-
+fun calcularSumaPromedio(numeros: List<Int>): Pair<Int, Double> {
+    // Función local para calcular la suma de los números
+    fun calcularSuma(): Int {
+        var suma = 0
+        for (numero in numeros) {
+            suma += numero
+        }
+        return suma
     }
 
-    dfs(graph, HashSet())
+    // Función local para calcular el promedio de los números
+    fun calcularPromedio(suma: Int): Double {
+        return suma.toDouble() / numeros.size
+    }
+
+    val suma = calcularSuma()
+    val promedio = calcularPromedio(suma)
+
+    return Pair(suma, promedio)
 }
+
 
 
 //lambdas
@@ -96,14 +108,8 @@ fun hazAlgo(i:Int):Unit{
 fun setFuncionCallBack(listener:(Int)->Unit){
     listener(1)
 }
-/*
-fun powerOf(number: Int, exponent: Int) {
-    var ret=0
-    for (i in exponent)
-        ret=ret+number*exponent
-    return ret
-}
-*/
+
+
 fun main(args : Array<String>) {
     //llamada a función
     var x=double(2)
@@ -162,5 +168,10 @@ fun main(args : Array<String>) {
     val varDoble=doble(2)
     println(varDoble)
 
+    val numeros = listOf(1, 2, 3, 4, 5)
+    val resultado = calcularSumaPromedio(numeros)
+
+    println("Suma: ${resultado.first}")
+    println("Promedio: ${resultado.second}")
 }
 

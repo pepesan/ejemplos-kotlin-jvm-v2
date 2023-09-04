@@ -1,6 +1,5 @@
 package com.cursosdedesarrollo.kotlin
 
-import com.sun.xml.internal.fastinfoset.util.StringArray
 import java.lang.Integer.parseInt
 
 fun main(args : Array<String>) {

@@ -1,8 +1,5 @@
 package com.cursosdedesarrollo.kotlin
 
-import kotlin.math.cos
-import java.util.HashSet
-
 
 // Ejemplo de programación funcional
 fun main(args : Array<String>) {
