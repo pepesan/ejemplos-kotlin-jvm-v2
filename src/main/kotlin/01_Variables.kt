@@ -1,7 +1,10 @@
 package com.cursosdedesarrollo.kotlin
 
 fun main(args : Array<String>) {
+    // Integer oneMillion = 1000000;
     val oneMillion = 1_000_000
+    // Es inmutable no puedo -> oneMillion = 2
+    // Long creditCardNumber = 1234567890123456L;
     val creditCardNumber = 1234_5678_9012_3456L
     val socialSecurityNumber = 999_99_9999L
     val hexBytes = 0xFF_EC_DE_5E
