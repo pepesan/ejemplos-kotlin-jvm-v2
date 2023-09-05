@@ -18,22 +18,40 @@ fun main(args: Array<String>) {
 
     println("Contiene el 2? ${x.contains(2)}")
 
+    println("Está vacío? ${x.isEmpty()}")
+
+
+
 
     // Creates an Array<String> with values ["0", "1", "4", "9", "16"]
-    var asc = Array(5, { i -> (i * i).toString() })
+    var asc = Array(5, { x -> (x * x).toString() })
 
     var arrI = Array(5, { i -> i })
 
     //inicialización a 0
     arrI= Array(5, {0})
 
+    arrI = Array(5) {0}
+
     for (item in arrI){
         println(item)
     }
+
+    for (i in 0..<arrI.size){
+        val item = arrI[i]
+        println("$i  = $item" )
+    }
+
+    for (i in arrI.indices){
+        val item = arrI[i]
+        println("$i  = $item" )
+    }
+
 
     val arrI2 = Array(4) {i -> i + 1.0}
     for (item in arrI2){
         println(item)
     }
+
 
 }
