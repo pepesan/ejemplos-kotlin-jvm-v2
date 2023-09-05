@@ -91,18 +91,29 @@ fun main(args : Array<String>) {
     b3 = null // ok
     println("b3 vale ${b3?.length}")
 
+    // cuentas con nullables
+
+    var entero1 = 2;
+    var entero2: Int? = 0;
+    // entero2 = null
+    var resultado = entero1 + entero2!!
+
+    var cadena: String? = "hola"
+    cadena = null
+    println("cadena vale ${cadena?.length}")
+
+
     //intento acceder a un valor sabiendo que debe existir
     val l = a3.length
     println(l)
     //accedo a un valor nullable intentando capturar el valor de la vairable si existe
     //val l2 = b3?.length ?:-1
-    if(b3==null){
+    if(b3!=null){
         var l2=b3?.length
     }else{
         var l2=-1
     }
     val l2 = b3?.length
-    //val l2 = b3!!.length
     println("Valor nullable:"+l2)
 
 
