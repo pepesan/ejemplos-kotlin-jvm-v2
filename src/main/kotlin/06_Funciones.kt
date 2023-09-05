@@ -7,6 +7,12 @@ fun double(x: Int): Int {
     return 2 * x
 }
 
+fun miFuncion(i1: Int = 0) {
+    println(i1)
+}
+
+
+
 
 
 //paso de parámetros
@@ -19,10 +25,7 @@ fun suma(x: Int, y:Int) :Int{
 fun suma(x: Float=0F, y:Float =0F) :Float{
     return x+y
 }
-//paso de parámetros
-fun suma(x: Float=0F, y:Double =0.0) :Any{
-    return x+y
-}
+
 
 fun devuelveNada():Unit{
     println("Hago cosas")
@@ -103,7 +106,7 @@ fun calcularSumaPromedio(numeros: List<Int>): Pair<Int, Double> {
 
 //lambdas
 fun hazAlgo(i:Int):Unit{
-    println("algo")
+    println("algo $i")
 }
 fun setFuncionCallBack(listener:(Int)->Unit){
     listener(1)
@@ -115,15 +118,17 @@ fun main(args : Array<String>) {
     var x=double(2)
     println(x)
     x= suma(2,3)
-
+    miFuncion(1)
 
     var f1=1.0F
     var f2=2.0F
     var f3=3.0F
     f3= suma(f1,f2)
     println(f3)
-    //f3=suma(f1)
-    //f3=suma()
+    var flotante1: Float = 2F
+    var flotante2: Float = 1F
+    f3=suma(flotante1)
+    // f3=suma()
     println(x)
     x= multi()
     println(x)
@@ -141,7 +146,9 @@ fun main(args : Array<String>) {
     x= multi(y=3,x=2)
     println(x)
     var u:Unit= devuelveSiQuieres(true)
-    println(u)
+    println("Unit es $u")
+    u= devuelveSiQuieres(false)
+    println("Unit es $u")
     //llamando a la función de paso variable de argumentos
     var list = asList(1, 2, 3)
     println(list)
@@ -159,8 +166,14 @@ fun main(args : Array<String>) {
 
     //llamadas lambda
     setFuncionCallBack(fun (i: Int) {
-            hazAlgo(i)
+        println(i)
+    })
+    setFuncionCallBack( {i -> println(i) } )
+    setFuncionCallBack { i -> println(i) }
 
+    setFuncionCallBack(fun (i: Int) {
+            hazAlgo(i)
+            hazAlgo(i)
     })
     setFuncionCallBack( {i -> hazAlgo(i) } )
     setFuncionCallBack {i -> hazAlgo(i) }
