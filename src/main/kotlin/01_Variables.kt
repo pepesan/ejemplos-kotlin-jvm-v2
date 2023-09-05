@@ -116,7 +116,11 @@ fun main(args : Array<String>) {
     val l2 = b3?.length
     println("Valor nullable:"+l2)
 
-
+    var miEntero: Int = 2
+    val unSupuesto: Int? = miEntero as? Int
+    var largo: Long? = miEntero.toLong()
+    // var largo: Long? = miEntero as? Long
+    println("entero vale $largo")
 
     var obj:String= "Hola"
     if (obj is String) {
