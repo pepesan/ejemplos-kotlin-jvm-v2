@@ -3,7 +3,16 @@ package com.cursosdedesarrollo.kotlin
 class Factura {
 }
 
-class Clase constructor(var nombre: String){
+/*
+Código Java
+class Clase{
+    String nombre;
+    Clase(String nombre){
+        this.nombre = nombre;
+    }
+}
+ */
+class Clase constructor(var nombre: String = ""){
 
 }
 
@@ -26,11 +35,13 @@ class Persona {
 
 class Girl {
     var age: Int = 0
-        //get() = field
+        // comportamiento por defecto
+        // get() = field
+        // set(value) {field = value}
         set(value) {
             field = if (value < 18)
                 18
-            else if (value >= 18 && value <= 30)
+            else if (value in 18..30)
                 value
             else
                 value-3
