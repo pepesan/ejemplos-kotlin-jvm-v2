@@ -16,16 +16,19 @@ fun showDatabases(conn: Connection?){
 
     try {
         stmt = conn?.createStatement()
-        resultset = stmt!!.executeQuery("SHOW DATABASES;")
+        resultset = stmt?.executeQuery("SHOW DATABASES;")
 
-        if (stmt.execute("SHOW DATABASES;")) {
+        if (stmt?.execute("SHOW DATABASES;") == true) {
             resultset = stmt.resultSet
         }
 
-        while (resultset!!.next()) {
+        while (resultset?.next() == true) {
             println(resultset.getString("Database"))
         }
     } catch (ex: SQLException) {
+        // handle any errors
+        ex.printStackTrace()
+    }catch (ex: Exception) {
         // handle any errors
         ex.printStackTrace()
     }
@@ -128,14 +131,14 @@ fun getAllUsers(connection: Connection?): MutableList<User> {
     return users
 }
 
-fun insertUser(connection: Connection?){
+fun insertUser(connection: Connection?): Int?{
     // Definir los valores del nuevo registro
     val name = "Ejemplo"
     val email = "ejemplo@example.com"
 
     // Query SQL para insertar un nuevo registro en la tabla "usuario"
     val insertQuery = "INSERT INTO usuario (name, email) VALUES (?, ?)"
-
+    var rowsAffected: Int? = 0
     try {
         // Prepara la sentencia SQL
         val preparedStatement: PreparedStatement? = connection?.prepareStatement(insertQuery)
@@ -143,20 +146,19 @@ fun insertUser(connection: Connection?){
         preparedStatement?.setString(2, email)
 
         // Ejecuta la inserción
-        val rowsAffected = preparedStatement?.executeUpdate()
+        rowsAffected= preparedStatement?.executeUpdate()
 
-        if (rowsAffected != null) {
-            if (rowsAffected > 0) {
-                println("Registro insertado correctamente.")
-            } else {
-                println("No se pudo insertar el registro.")
-            }
+
+        if (rowsAffected!! > 0) {
+           println("Registro insertado correctamente.")
+        } else {
+           println("No se pudo insertar el registro.")
         }
+
     } catch (e: Exception) {
         e.printStackTrace()
-    } finally {
-        // Cierra la conexión a la base de datos
     }
+    return rowsAffected
 }
 
 fun updateUser(conn: Connection?, id: Long): Int? {
@@ -177,13 +179,12 @@ fun updateUser(conn: Connection?, id: Long): Int? {
         // Ejecuta la actualización
         rowsAffected = preparedStatement?.executeUpdate()
 
-        if (rowsAffected != null) {
-            if (rowsAffected > 0) {
-                println("Registro actualizado correctamente.")
-            } else {
-                println("No se pudo actualizar el registro. Es posible que el ID no exista.")
-            }
+        if (rowsAffected!! > 0) {
+            println("Registro actualizado correctamente.")
+        } else {
+            println("No se pudo actualizar el registro. Es posible que el ID no exista.")
         }
+
     } catch (e: Exception) {
         e.printStackTrace()
         rowsAffected = 0
@@ -195,10 +196,10 @@ fun updateUser(conn: Connection?, id: Long): Int? {
 
 fun getUserById(conn: Connection?, id: Long): User {
     val sql = "SELECT id, name, email FROM test.usuario Where id = ?"
-    val statement = conn?.createStatement()
+    val preparedStatement: PreparedStatement?
     var user = User()
     try {
-        val preparedStatement: PreparedStatement? = conn?.prepareStatement(sql)
+        preparedStatement = conn?.prepareStatement(sql)
         preparedStatement?.setLong(1, id)
         val resultSet = preparedStatement?.executeQuery()
 
@@ -270,22 +271,25 @@ fun main() {
         // handle any errors
         ex.printStackTrace()
     }
-    //showDatabases(conn)
-    //showTables(conn)
+    showDatabases(conn)
+    showTables(conn)
     //createTable(conn)
     //deleteTable(conn)
-
+//
     var users: MutableList<User> = getAllUsers(conn)
     println(users)
-    insertUser(conn)
+    var rowsAffected = insertUser(conn)
+    println(rowsAffected)
     users = getAllUsers(conn)
     println(users)
-    val id: Long = users.get(0).id
+    val id: Long = users[0].id
     println("id: $id")
-    updateUser(conn, id)
-    var user = getUserById(conn, id)
+    rowsAffected = updateUser(conn, id)
+    println(rowsAffected)
+    val user = getUserById(conn, id)
     println(user)
-    deleteUserById(conn, id)
+    rowsAffected = deleteUserById(conn, id)
+    println(rowsAffected)
     conn?.close()
 }
 
