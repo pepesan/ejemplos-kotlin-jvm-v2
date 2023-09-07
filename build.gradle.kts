@@ -24,6 +24,10 @@ dependencies {
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     implementation("ch.qos.logback:logback-classic:1.4.11")
 
+    // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+    implementation("com.mysql:mysql-connector-j:8.0.33")
+
+
 }
 
 tasks.test {

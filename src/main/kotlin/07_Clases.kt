@@ -74,10 +74,7 @@ data class Person2(var name: String="") {
 open class Madre{
     var nombre: String? = null
 
-    constructor(){
-        this.nombre=""
-    }
-    constructor(nombre: String){
+    constructor(nombre: String = ""){
         this.nombre=nombre
     }
     override fun toString():String{
@@ -87,15 +84,8 @@ open class Madre{
 
 class Hija: Madre {
     var herencia:String? = null
-    constructor(){
-        super.nombre=""
-        this.herencia=""
-    }
-    constructor(nombre:String){
-        super.nombre=nombre
-        this.herencia=""
-    }
-    constructor(nombre:String,herencia:String){
+
+    constructor(nombre:String = "",herencia:String =""){
         super.nombre=nombre
         this.herencia=herencia
     }
@@ -104,20 +94,41 @@ class Hija: Madre {
     }
 }
 
+open class Madre2(nombre: String = "") {
+    var nombre: String? = nombre
+
+    override fun toString():String{
+        return "Madre[nombre:"+this.nombre+"]"
+    }
+}
+
+class Hija3(nombre: String = "", herencia: String = "") : Madre() {
+    var herencia:String? = herencia
+
+    init {
+        super.nombre=nombre
+    }
+    override fun toString():String{
+        return "Hija3[herencia:"+this.herencia+",nombre:"+this.nombre+"]"
+    }
+}
+
 
 class Hija2: Madre  {
     var herencia:String? = null
-    constructor() : super(""){
-        this.herencia=""
-    }
-    constructor(nombre:String) : super(nombre){
-        this.herencia=""
-    }
-    constructor(nombre:String,herencia:String) : super (nombre){
+
+    constructor(nombre:String = "",herencia:String = "") : super (){
         this.herencia=herencia
     }
     override fun toString():String{
-        return "Hija[herencia:"+this.herencia+",nombre:"+this.nombre+"]"
+        return "Hija2[herencia:"+this.herencia+",nombre:"+this.nombre+"]"
+    }
+}
+
+class Hija4(nombre: String = "", herencia: String = "") : Madre(nombre) {
+    var herencia:String? = herencia
+    override fun toString():String{
+        return "Hija4[herencia:"+this.herencia+",nombre:"+this.nombre+"]"
     }
 }
 
@@ -166,7 +177,7 @@ interface Base {
 }
 
 class BaseImpl(val x: Int) : Base {
-    override fun print() { print(x) }
+    override fun print() { println("BaseImpl : $x") }
 }
 
 class Derived(b: Base) : Base by b
@@ -230,12 +241,22 @@ fun main(args : Array<String>) {
     println(hija)
     hija=Hija("Luisa","Total")
     println(hija)
+    // Uso de interfaces
     var child=Child()
     child.foo()
     child.bar()
+    println(child.prop)
 
     val b = BaseImpl(10)
+    b.print()
     Derived(b).print()
+
+    var hija2 = Hija2("Nuria")
+    println(hija2)
+    var hija4 = Hija4("Pepita")
+    println(hija4)
+
+
 }
 
 

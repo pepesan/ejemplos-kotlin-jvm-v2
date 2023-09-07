@@ -11,6 +11,8 @@ fun main(args : Array<String>) {
 
         }
     }
+    // como es inmutable no puedo añadir elementos
+    //cosas.add(2)
     //declaramos un listado y lo rellenamos con listOf
     var numbers: List<Int> = listOf(1, 2, 3, 4, 5)
     for (number in numbers) {
@@ -24,6 +26,12 @@ fun main(args : Array<String>) {
     println(names.get(0)) // Primer elemento
     println(names.indexOf("Chike")) // posición
     println(names.contains("Chike")) //  presencia
+
+
+    val datos: List<Dato> = listOf(Dato())
+    for (dato in datos){
+        println(dato)
+    }
 
     //convertimos de inmutable a mutable
     val mutables = names.toMutableList()
