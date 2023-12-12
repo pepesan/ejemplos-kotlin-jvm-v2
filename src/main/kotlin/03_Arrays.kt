@@ -3,8 +3,11 @@ package com.cursosdedesarrollo.kotlin
 
 fun main(args: Array<String>) {
     val x: IntArray = intArrayOf(1, 2, 3)
+    // puedo cambiar la variable (por dentro) aunque sea val
     x[0] = x[1] + x[2]
     println(x[0])
+    // no puedo redeclarar la variable
+    // x = intArrayOf(1, 2, 3)
     println(x.get(0))
     x.set(0,2)
     println(x.get(0))
@@ -12,8 +15,10 @@ fun main(args: Array<String>) {
     println(x.size)
 
     /*
-    x[4]= 2
-    println(x[4])
+    El array es estático en tamaño
+    No puedo acceder al índice 3
+    x[3]= 2
+    println(x[3])
     */
 
     println("Contiene el 2? ${x.contains(2)}")

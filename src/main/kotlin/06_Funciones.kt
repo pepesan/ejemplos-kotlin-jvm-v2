@@ -105,9 +105,19 @@ fun calcularSumaPromedio(numeros: List<Int>): Pair<Int, Double> {
 
 
 //lambdas
-fun hazAlgo(i:Int):Unit{
+fun suma2(x:Int,y:Int):Int{ // (Int,Int)->Int
+    return x+y
+}
+
+// función lambda para pasar a setFuncionCallBack
+fun hazAlgo(i:Int):Unit{ // (Int)->Unit
     println("algo $i")
 }
+
+fun hazOtraCosa (i: Int):Unit{
+    println("otra cosa $i")
+}
+
 fun setFuncionCallBack(listener:(Int)->Unit){
     listener(1)
 }
@@ -165,18 +175,34 @@ fun main(args : Array<String>) {
 
 
     //llamadas lambda
+
+    /*
+        fun hazAlgo(i:Int):Unit{ // (Int)->Unit
+            println("algo $i")
+        }
+        fun setFuncionCallBack(listener:(Int)->Unit){
+            listener(1)
+        }
+    */
     setFuncionCallBack(fun (i: Int) {
         println(i)
     })
     setFuncionCallBack( {i -> println(i) } )
     setFuncionCallBack { i -> println(i) }
-
+    setFuncionCallBack { i ->
+        println(i)
+        println(i)
+    }
     setFuncionCallBack(fun (i: Int) {
             hazAlgo(i)
             hazAlgo(i)
     })
     setFuncionCallBack( {i -> hazAlgo(i) } )
     setFuncionCallBack {i -> hazAlgo(i) }
+    setFuncionCallBack {i ->
+        hazAlgo(i)
+        hazAlgo(i)
+    }
 
     val varDoble=doble(2)
     println(varDoble)

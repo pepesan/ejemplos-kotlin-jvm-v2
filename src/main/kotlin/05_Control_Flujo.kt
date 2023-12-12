@@ -80,7 +80,8 @@ fun main(args : Array<String>) {
     for (item in arrayNumeros) {
         println(item)
     }
-    for (i in 1..3) {
+    println("Bucle rango")
+    for (i in 1..5) {
         println(i)
     }
 

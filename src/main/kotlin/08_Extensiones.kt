@@ -7,7 +7,7 @@ fun MutableList<Int>.swap(index1: Int, index2: Int) {
 }
 
 fun main(args : Array<String>) {
-    var listado:MutableList<Int> = mutableListOf(1, 2, 3)
+    val listado:MutableList<Int> = mutableListOf(1, 2, 3)
     println(listado)
     listado.swap(0,1)
     println(listado)

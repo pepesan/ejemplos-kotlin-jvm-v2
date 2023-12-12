@@ -1,5 +1,7 @@
 package com.cursosdedesarrollo.kotlin
 
+// definición de constante global
+const val PI = 3.14159
 fun main(args : Array<String>) {
     // Integer oneMillion = 1000000;
     val oneMillion = 1_000_000
@@ -23,10 +25,14 @@ fun main(args : Array<String>) {
 
 
     var edad = 12
-    //edad = "12 años" // Error: no puede cambiar de tipo
+    // edad = "12 años" // Error: no puede cambiar de tipo
 
     val a: Int
     a = 10000
+
+    // usa el Integer de Java
+    var numero: Integer
+
 
     println(a === a) // Prints 'true'
     val boxedA: Int = a
@@ -47,12 +53,12 @@ fun main(args : Array<String>) {
     val miHexadecimal = 0x0F
     val miBinario = 0b010101
 
-    /*
-    var miInt3 = 987
-    val miLong2 = myInt3.toLong()
-    val cadena = "101"
-    miInt = cadena.toInt()
-    */
+
+    val miInt3: Int = 987
+    val miLong2 = miInt3.toLong()
+    val cadena2 = "101"
+    val miInt2 = cadena2.toInt()
+
     val miTrue: Boolean = true
     val miFalse = false
 
@@ -70,6 +76,14 @@ fun main(args : Array<String>) {
         Segunda
         Tercera """
     println("Cadena larga:"+stringMultiLinea)
+
+    val miJSON= """
+       {
+           "name": "$miString",
+           "age": $miInt2,
+       } 
+    """
+    println(miJSON)
     //concatenación o llenado de cadenas
     val balance = 200
     val mensaje = "El balance es de $balance"
@@ -77,8 +91,9 @@ fun main(args : Array<String>) {
     println(mensaje)
     //acceso a métodos de un objeto
     val nombre = "Carlos"
-    val mensaje2 = "La primera letra del nombre es ${nombre.first()}"
-
+    val mensaje2 =
+        "La primera letra del nombre es ${nombre.first()}"
+    println(mensaje2)
     val b4: Byte = 1 // OK, literals are checked statically
     //val i: Int = b4 // ERROR
     val i: Int = b4.toInt() // OK: explicitly widened
