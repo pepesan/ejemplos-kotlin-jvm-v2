@@ -29,7 +29,7 @@ class Persona {
     }
 
     override fun toString(): String {
-        return "Persona[nombre:" + this.nombre + "]"
+        return "Persona[nombre: ${nombre}]"
     }
 }
 
@@ -48,6 +48,10 @@ class Girl {
         }
 
     var actualAge: Int = 0
+        // get() = field
+        set(value) {
+            field = value+1
+        }
 }
 
 class Contador{
@@ -125,7 +129,10 @@ class Hija2: Madre  {
     }
 }
 
-class Hija4(nombre: String = "", herencia: String = "") : Madre(nombre) {
+class Hija4(
+    nombre: String = "",
+    herencia: String = "")
+    : Madre(nombre) {
     var herencia:String? = herencia
     override fun toString():String{
         return "Hija4[herencia:"+this.herencia+",nombre:"+this.nombre+"]"
@@ -179,8 +186,15 @@ interface Base {
 class BaseImpl(val x: Int) : Base {
     override fun print() { println("BaseImpl : $x") }
 }
+class BaseImpl2(val x: Int) : Base {
+    override fun print() { println("BaseImpl2 : $x") }
+}
 
-class Derived(b: Base) : Base by b
+// Esta clase usa un objeto de tipo : Base (interfaz)
+// Inicializo el objeto en base a un objeto que una impl concreta
+class Delegadora(b: Base): Base by b{
+    // aquí van los métodos y atributos de la clase delegadora
+}
 
 
 fun main(args : Array<String>) {
@@ -246,10 +260,16 @@ fun main(args : Array<String>) {
     child.foo()
     child.bar()
     println(child.prop)
-
+    println("Delegacion")
     val b = BaseImpl(10)
-    b.print()
-    Derived(b).print()
+    // b.print()
+    val objeto1 = Delegadora(b)
+    objeto1.print()
+
+    val b2 = BaseImpl2(10)
+    // b2 es un objeto de Interfaz Base
+    val objeto2 = Delegadora(b2)
+    objeto2.print()
 
     var hija2 = Hija2("Nuria")
     println(hija2)

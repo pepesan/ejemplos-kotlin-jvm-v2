@@ -13,7 +13,7 @@ fun main(args : Array<String>) {
         print(c)
     """
     println(s)
-
+    println("TrimMargin")
     s = """
     |Tell me and I forget.
     |Teach me and I remember.
@@ -53,7 +53,7 @@ fun main(args : Array<String>) {
 
     result = s1.plus(" How are you?") // result = s1 + " How are you?"
     println("result = $result")
-
+    // val s1  = "Hey there!"
     println("Substring is \"${s1.subSequence(4, 7)}\"")
 
 }

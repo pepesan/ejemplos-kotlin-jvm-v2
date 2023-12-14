@@ -34,6 +34,51 @@ tasks.test {
     useJUnitPlatform()
 }
 
+abstract class HelloTask : DefaultTask() {
+    @TaskAction
+    fun hello() {
+        println("hello from HelloTask")
+    }
+}
+
+tasks.register<HelloTask>("hello-task") {
+    group = "Custom tasks"
+    description = "A lovely greeting task."
+}
+
+tasks.register("hello") {
+    group = "Custom"
+    description = "A lovely greeting task."
+    doLast {
+        println("Hello world!")
+    }
+    dependsOn(tasks.assemble)
+}
+tasks.register("intro") {
+    dependsOn("hello")
+    doLast {
+        println("I'm Gradle")
+    }
+}
+
+abstract class GreetingTask : DefaultTask() {
+    @get:Input
+    abstract var greeting: Property<String>
+
+    init {
+        greeting.convention("hello from GreetingTask")
+    }
+
+    @TaskAction
+    fun greet() {
+        println(greeting.get())
+    }
+}
+
+tasks.register<GreetingTask>("greeting") {
+    greeting.set("greetings from GreetingTask")
+}
+
 kotlin {
     jvmToolchain(8)
 }

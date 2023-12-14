@@ -6,7 +6,7 @@ data class Cliente (
     var tlf: String = "",
     var email: String = "",
     private var cotizacion: Float = 0F,
-    var totalCotizaciones: Float = 0F
+    private var totalCotizaciones: Float = 0F
     ) {
 
     fun setCotizacion(cotizacion: Float = 0F){
@@ -16,5 +16,9 @@ data class Cliente (
 
     fun getCotizacion(): Float{
         return this.cotizacion
+    }
+
+    fun getTotalCotizaciones(): Float{
+        return this.totalCotizaciones
     }
 }
