@@ -26,6 +26,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
     implementation("com.mysql:mysql-connector-j:8.0.33")
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
 }
 
@@ -34,12 +36,15 @@ tasks.test {
 }
 
 
+// Registro de tareas
 
 tasks.register("tarea-tonta") {
     doLast {
         println("Haciendo tonterías")
     }
 }
+
+// Registro de tareas con metadatos
 
 tasks.register("tarea-tonta2") {
     group = "Custom"
@@ -49,17 +54,21 @@ tasks.register("tarea-tonta2") {
     }
 }
 
+// Clase de Definición de Tarea
 abstract class HelloTask : DefaultTask() {
     @TaskAction
     fun hello() {
         println("hello from HelloTask")
     }
 }
+
+// Registro de tareas con clase
 tasks.register<HelloTask>("hello-task") {
     group = "Custom tasks"
     description = "A lovely greeting task."
 }
 
+// Registro de tareas con dependencia builtin
 tasks.register("hello-assemble") {
     group = "Custom"
     description = "A lovely greeting task."
@@ -68,6 +77,8 @@ tasks.register("hello-assemble") {
     }
     dependsOn(tasks.assemble)
 }
+
+// Registro de tareas con dependencia a custom
 tasks.register("hello-intro") {
     dependsOn("hello-assemble")
     doLast {
@@ -75,7 +86,7 @@ tasks.register("hello-intro") {
     }
 }
 
-
+// Registro de clase de tarea con Inputs
 open class SlackTask : DefaultTask() {
     @Input
     var messageText: String = ""
@@ -87,10 +98,50 @@ open class SlackTask : DefaultTask() {
         println("hello from HelloTask message: $messageText  url: $webhookUrl")
     }
 }
+// Registro de tareas con clase e inputs
 tasks.register<SlackTask>("slack") {
     messageText = "Hello there!"
     webhookUrl = "your webhook URL here"
 }
+
+// Ejemplos de plugins
+
+// Plugin de definición de tarea
+class GreetingPlugin : Plugin<Project> {
+    override fun apply(project: Project) {
+        project.task("hello-plugin") {
+            doLast {
+                println("Hello from the GreetingPlugin")
+            }
+        }
+    }
+}
+
+// Registro de plugin
+apply<GreetingPlugin>()
+// ahora puedo usar la tarea hello-plugin
+
+// Definición de interfaz con Datos del plugin
+interface GreetingPluginExtension {
+    var message: Property<String>
+}
+// Definición de clase de plugin con uso del interfaz
+class GreetingPlugin2 : Plugin<Project> {
+    override fun apply(project: Project) {
+        // Add the 'greeting' extension object
+       project.task("hello-plugin2") {
+            doLast {
+                println("Hello from the GreetingPlugin2")
+            }
+        }
+    }
+}
+
+// Registro de plugin
+apply<GreetingPlugin2>()
+
+
+
 kotlin {
     jvmToolchain(8)
 }
