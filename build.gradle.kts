@@ -27,11 +27,26 @@ dependencies {
     // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
     implementation("com.mysql:mysql-connector-j:8.0.33")
 
-
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+
+
+
+tasks.register("tarea-tonta") {
+    doLast {
+        println("Haciendo tonterías")
+    }
+}
+
+tasks.register("tarea-tonta2") {
+    group = "Custom"
+    description = "A lovely greeting task."
+    doLast {
+        println("Haciendo tonterías 2")
+    }
 }
 
 abstract class HelloTask : DefaultTask() {
@@ -40,13 +55,12 @@ abstract class HelloTask : DefaultTask() {
         println("hello from HelloTask")
     }
 }
-
 tasks.register<HelloTask>("hello-task") {
     group = "Custom tasks"
     description = "A lovely greeting task."
 }
 
-tasks.register("hello") {
+tasks.register("hello-assemble") {
     group = "Custom"
     description = "A lovely greeting task."
     doLast {
@@ -54,31 +68,29 @@ tasks.register("hello") {
     }
     dependsOn(tasks.assemble)
 }
-tasks.register("intro") {
-    dependsOn("hello")
+tasks.register("hello-intro") {
+    dependsOn("hello-assemble")
     doLast {
         println("I'm Gradle")
     }
 }
 
-abstract class GreetingTask : DefaultTask() {
-    @get:Input
-    abstract var greeting: Property<String>
 
-    init {
-        greeting.convention("hello from GreetingTask")
-    }
+open class SlackTask : DefaultTask() {
+    @Input
+    var messageText: String = ""
+    @Input
+    var webhookUrl: String = ""
 
     @TaskAction
-    fun greet() {
-        println(greeting.get())
+    fun showMessage() {
+        println("hello from HelloTask message: $messageText  url: $webhookUrl")
     }
 }
-
-tasks.register<GreetingTask>("greeting") {
-    greeting.set("greetings from GreetingTask")
+tasks.register<SlackTask>("slack") {
+    messageText = "Hello there!"
+    webhookUrl = "your webhook URL here"
 }
-
 kotlin {
     jvmToolchain(8)
 }
